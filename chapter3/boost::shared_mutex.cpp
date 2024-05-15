@@ -6,7 +6,7 @@
 #include <string>
 #include <mutex>
 #include <boost/thread/shared_mutex.hpp>
-#include<thread>
+#include <thread>
 
 class dns_entry{
 public:

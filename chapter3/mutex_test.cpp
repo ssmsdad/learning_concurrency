@@ -31,7 +31,7 @@ private:
     int some_detail;
     mutable std::mutex m;
     int get_detail() const{
-        // 防的是不同线程中的相同的 Y 对象调用 get_detail() 函数，这两个线程会互斥地访问 some_detail，而不同的 Y 对象可以并发地访问 some_detail
+        // 防的是不同线程中的相同的 Y 对象调用 get_detail() 函数，这两个线程会互斥地访问 some_detail，而同一线程中的不同 Y 对象可以并发地访问 some_detail
         std::lock_guard<std::mutex> lock_a(m); // 1
         return some_detail;
     }

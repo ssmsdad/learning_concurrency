@@ -36,6 +36,7 @@ public:
         data.pop();
         return res;
     }
+    // 使用引用参数，保存pop出来的值，避免因为多线程问题丢失了这个pop出来的值
     void pop(T& value){
         std::lock_guard<std::mutex> lock(m);
         if(data.empty()) throw empty_stack();
