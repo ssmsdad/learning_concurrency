@@ -3,8 +3,15 @@
 #include <iostream>
 #include <condition_variable>
 #include <mutex>
+#include <ratio>
 #include <thread>
 #include <chrono>
+
+// duration(时延)对象，time_point（时间点）对象，二者第二个模板参数都是时间单位
+std::chrono::duration<short,std::ratio<60,1>> timeout(5);   // 5分钟,std::ratio前边的单位是秒，后边的单位根据与秒的转换替换为想要的单位
+std::chrono::time_point<std::chrono::system_clock,std::chrono::minutes> tp=std::chrono::time_point_cast<std::chrono::minutes>(std::chrono::system_clock::now()+timeout);    // 当前时间+5分钟
+
+
 
 std::condition_variable cv;
 std::mutex mtx;
@@ -44,9 +51,12 @@ int main() {
     // 主线程做一些工作，然后通知等待的线程
     // 这里我们故意不通知，以测试超时情况
     // std::this_thread::sleep_for(std::chrono::seconds(6));
-    
+    std::cout<<"timeout:"<<timeout.count()<<std::endl;
+    std::cout<<"tp:"<<tp.time_since_epoch().count()<<std::endl;
     // 等待线程结束，即使线程被阻塞，也会等待线程结束
     t.join();
     return 0;
 }
+
+
 
