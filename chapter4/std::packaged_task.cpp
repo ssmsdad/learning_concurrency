@@ -6,10 +6,6 @@
 #include<thread>
 #include<chrono>
 
-
-
-
-
 std::mutex m;
 std::deque<std::packaged_task<void()>> tasks;
 
