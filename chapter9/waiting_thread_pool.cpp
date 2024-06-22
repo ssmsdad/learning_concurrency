@@ -205,6 +205,7 @@ public:
     }
     template<typename FunctionType>
     std::future<std::result_of_t<FunctionType()>> submit(FunctionType f){
+        // std::result_of_t<FunctionType()>是函数f的返回值类型
         using result_type=std::result_of_t<FunctionType()>;
         std::packaged_task<result_type()> task(std::move(f));
         std::future<result_type> res(task.get_future());
