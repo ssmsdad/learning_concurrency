@@ -105,6 +105,7 @@ void thread_safe_queue<T>::push(T new_value){
         tail->next=std::move(p);
         tail=tail->next.get();
     }
+    // 通知等待线程比较慢，所以不要在锁内调用
     data_cond.notify_one();
 }
 

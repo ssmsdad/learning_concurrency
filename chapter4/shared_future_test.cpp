@@ -13,15 +13,16 @@ int return_int(){
 }
 
 int main(){
-    auto f = std::async(std::launch::async, return_int);
-    std::shared_future<int> sf = f.share();
+    // auto f = std::async(std::launch::async, return_int);
+    // std::shared_future<int> sf = f.share();
+    std::shared_future<int> sf2 = std::async(std::launch::async, return_int).share();
 
-    std::thread t1([sf](){
-        std::cout << "Thread 1: " << sf.get() << std::endl;
+    std::thread t1([sf2](){
+        std::cout << "Thread 1: " << sf2.get() << std::endl;
     });
 
-    std::thread t2([sf](){
-        std::cout << "Thread 2: " << sf.get() << std::endl;
+    std::thread t2([sf2](){
+        std::cout << "Thread 2: " << sf2.get() << std::endl;
     });
 
     t1.join();

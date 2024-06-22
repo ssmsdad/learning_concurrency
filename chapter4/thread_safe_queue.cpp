@@ -8,6 +8,7 @@
 
 
 // 将 std::queue 包装在一个类中，这样不必关心 std::queue 的线程安全问题，不用考虑上锁和解锁的问题
+// 用一个互斥量保护整个队列，这样就可以在多个线程中安全地访问队列，但是不高效，因为只有一个线程可以访问队列，更高效的方法是见第六章
 template< typename T>
 class thread_safe_queue{
 private:
